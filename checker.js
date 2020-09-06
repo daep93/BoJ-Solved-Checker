@@ -1,10 +1,11 @@
 chrome.tabs.executeScript(
   {
-    code: 'document.querySelector("problem_number").innerText',
+    code: 'document.querySelector(".col-md-9").innerText',
   },
   function (result) {
     const numberText = result[0];
-    const myNum = numberText.match(new RegExp("\\b \\b", "g"));
+    console.log(numberText);
+    const myNum = numberText.match(new RegExp("\\b1000\\b", "gi")).length;
     if (myNum >= 1) {
       document.querySelector("span").innerText = "solved";
     } else {
