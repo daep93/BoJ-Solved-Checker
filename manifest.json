@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "BoJ Group Solved",
+  "version": "1.0",
+  "description": "It helps you to check whether your group already solved a problem",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "index.html"
+  },
+  "permissions": ["activeTab"]
+}
