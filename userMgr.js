@@ -27,7 +27,7 @@ function showUser(text) {
   const newId = users.length + 1;
   delBtn.innerText = text;
   delBtn.addEventListener("click", deleteUser);
-  span.innerText = text;
+  span.innerText = "checking";
   li.appendChild(delBtn);
   li.appendChild(span);
   li.id = newId;
