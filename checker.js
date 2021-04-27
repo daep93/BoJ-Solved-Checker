@@ -1,8 +1,4 @@
-// 확장프로그램 클릭시 init()이 작동함.
-init();
-function init() {
-  findProbNum(true, 0, "0");
-}
+findProbNum(true, 0, "0");
 
 // 현재 탭의 url을 받음.
 function findProbNum(mode, id, userID) {
@@ -10,7 +6,8 @@ function findProbNum(mode, id, userID) {
     { active: true, lastFocusedWindow: true, currentWindow: true },
     function (tabs) {
       let url = tabs[0].url;
-      getProbNum(url, mode, id, userID);
+      let reg =/www.acmicpc.net\/problem/
+      if(reg.test(url)) getProbNum(url, mode, id, userID);
     }
   );
 }
@@ -30,7 +27,7 @@ function loadName(probNum, mode, id, userID) {
     const currentUsers = localStorage.getItem("user");
     if (currentUsers !== null) {
       const parsedUsers = JSON.parse(currentUsers);
-      parsedUsers.forEach((element) => {
+      parsedUsers.forEach(element => {
         checkSolved(element.id, element.text, probNum);
       });
     }
@@ -57,10 +54,19 @@ function checkSolved(id, userID, probNum) {
       const numberText = xhr.responseText;
 
       const myNum = numberText.search(new RegExp("\\b" + probNum + "\\b"));
+      const checking =document.getElementById(id).querySelector(".checking");
       if (myNum !== -1) {
-        document.getElementById(id).querySelector("span").innerText = "solved";
+        checking.innerText = "solved";
+
+        checking.classList.remove('checking');
+        checking.classList.remvoe('failed');
+        checking.classList.add('solved');
       } else {
-        document.getElementById(id).querySelector("span").innerText = "yet";
+        checking.innerText = "yet";
+
+        checking.classList.remove('checking');
+        checking.classList.remvoe('solved');
+        checking.classList.add('failed');
       }
     } else {
       console.log(`[${xhr.status}] : ${xhr.statusText}`);

@@ -6,13 +6,20 @@
     <title>BoJ Group Solved</title>
     <script defer src="userMgr.js"></script>
     <script defer src="checker.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <!-- checker가 백준 아이디를 받아서 계속 저장해줘야 함 -->
-    <div class="problem_number"></div>
-    <form class="BoJ-user-form">
-      <input type="text" placeholder="Write BoJ User ID" />
+    
+    <div id="problem_number"></div>
+    <form id="BoJ-user-form">
+      <input id="BoJ-user-input" type="text" placeholder="백준 아이디를 입력하세요" />
+      <i class="material-icons star">
+        auto_awesome
+        </i>
+      
     </form>
-    <ul class="BoJ-user-list"></ul>
+    <ul id="BoJ-user-list"></ul>
   </body>
 </html>

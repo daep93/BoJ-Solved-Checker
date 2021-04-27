@@ -1,19 +1,12 @@
-const userList = document.querySelector(".BoJ-user-list"),
-  userForm = document.querySelector(".BoJ-user-form"),
-  userInput = userForm.querySelector("input");
+const userList = document.querySelector("#BoJ-user-list")
+const userForm = document.querySelector("#BoJ-user-form")
+const userInput = document.querySelector("#BoJ-user-input");
 
-const USER_LS = "user";
+const USER_LS = "BoJ-user-list";
 let users = [];
 
-// 확장프로그램 실행시 checker보다 먼저 올라간다.
-init();
-function init() {
-  loadName();
-  userForm.addEventListener("submit", handleSubmit);
-}
-
 // localStorage에 저장해놓은 이름들을 불러서 showUser함수를 통해 display한다.
-function loadName() {
+function loadUserList() {
   const currentUsers = localStorage.getItem(USER_LS);
   if (currentUsers !== null) {
     const parsedUsers = JSON.parse(currentUsers);
@@ -27,26 +20,42 @@ function loadName() {
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = userInput.value;
+  if(!currentValue) return;
   showUser(currentValue);
   userInput.value = "";
   findProbNum(false, users.length, users[users.length - 1].text);
 }
 
+// 확장프로그램 실행시 checker보다 먼저 올라간다.
+loadUserList();
+userForm.addEventListener("submit", handleSubmit);
+
+
+
+
+
 // showUser를 호출시에는 userObj를 만들어서 localStorage에 저장된 users에 새롭게 user를 추가한다.
-function showUser(text) {
+function showUser(userName) {
   const li = document.createElement("li");
-  const delBtn = document.createElement("button");
-  const span = document.createElement("span");
+  const delBtn = document.createElement("i");
+  const name = document.createElement('span');
+  const checked = document.createElement("span");
   const newId = users.length + 1;
-  delBtn.innerText = text;
+  delBtn.innerText = 'delete';
+  delBtn.classList.add('material-icons');
+  delBtn.classList.add('delete');
+  name.innerText = userName;
+  name.classList.add('name')
   delBtn.addEventListener("click", deleteUser);
-  span.innerText = "checking";
+  checked.innerText = "checking...";
+  checked.classList.add('checking');
+  li.appendChild(name);
+  li.appendChild(checked);
   li.appendChild(delBtn);
-  li.appendChild(span);
   li.id = newId;
   userList.appendChild(li);
   const userObj = {
-    text: text,
+    text: userName,
     id: newId,
   };
   users.push(userObj);
