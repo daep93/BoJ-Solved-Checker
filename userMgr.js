@@ -1,9 +1,13 @@
 const userList = document.querySelector("#BoJ-user-list")
 const userForm = document.querySelector("#BoJ-user-form")
 const userInput = document.querySelector("#BoJ-user-input");
+const userEnrollButton = document.querySelector('#BoJ-user-enroll');
 
 const USER_LS = "BoJ-user-list";
 let users = [];
+
+userEnrollButton.addEventListener("click", handleSubmit);
+
 
 // localStorage에 저장해놓은 이름들을 불러서 showUser함수를 통해 display한다.
 function loadUserList() {
@@ -47,11 +51,12 @@ function showUser(userName) {
   name.innerText = userName;
   name.classList.add('name')
   delBtn.addEventListener("click", deleteUser);
-  checked.innerText = "checking...";
+  checked.innerText = "Checking...";
   checked.classList.add('checking');
+  checked.classList.add('status');
+  li.appendChild(delBtn);
   li.appendChild(name);
   li.appendChild(checked);
-  li.appendChild(delBtn);
   li.id = newId;
   userList.appendChild(li);
   const userObj = {

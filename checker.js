@@ -1,4 +1,3 @@
-findProbNum(true, 0, "0");
 
 // 현재 탭의 url을 받음.
 function findProbNum(mode, id, userID) {
@@ -6,25 +5,25 @@ function findProbNum(mode, id, userID) {
     { active: true, lastFocusedWindow: true, currentWindow: true },
     function (tabs) {
       let url = tabs[0].url;
-      let reg =/www.acmicpc.net\/problem/
+      let reg =/acmicpc.net\/problem/
       if(reg.test(url)) getProbNum(url, mode, id, userID);
     }
   );
 }
-
+findProbNum(true, 0, "0");
 // url 말미에 적힌 문제 번호를 받음.
 function getProbNum(url, mode, id, userID) {
   let i;
   for (i = url.length - 1; url[i] != "/"; i--) {}
   const probNum = url.substring(i + 1, url.length);
-  document.querySelector(".problem_number").innerText = probNum;
+  document.querySelector("#problem_number").innerText = `Problem ${probNum}`;
   loadName(probNum, mode, id, userID);
 }
 
 // key가 user인 value들을 받아서 for each문을 통해 주어진 문제를 풀었는지 확인.
 function loadName(probNum, mode, id, userID) {
   if (mode) {
-    const currentUsers = localStorage.getItem("user");
+    const currentUsers = localStorage.getItem(USER_LS);
     if (currentUsers !== null) {
       const parsedUsers = JSON.parse(currentUsers);
       parsedUsers.forEach(element => {
@@ -56,20 +55,37 @@ function checkSolved(id, userID, probNum) {
       const myNum = numberText.search(new RegExp("\\b" + probNum + "\\b"));
       const checking =document.getElementById(id).querySelector(".checking");
       if (myNum !== -1) {
-        checking.innerText = "solved";
-
-        checking.classList.remove('checking');
-        checking.classList.remvoe('failed');
+        checking.innerText = "Solved";
+        try {
+          checking.classList.remove('checking');
+          checking.classList.remvoe('failed');  
+        } catch (error) {
+          
+        }
+        
         checking.classList.add('solved');
       } else {
-        checking.innerText = "yet";
-
-        checking.classList.remove('checking');
-        checking.classList.remvoe('solved');
+        checking.innerText = "Yet";
+        try {
+          checking.classList.remove('checking');
+          checking.classList.remvoe('solved');
+        } catch (error) {
+          
+        }
+        
         checking.classList.add('failed');
       }
     } else {
-      console.log(`[${xhr.status}] : ${xhr.statusText}`);
+      // console.log(`[${xhr.status}] : ${xhr.statusText}`);
+      const checking =document.getElementById(id).querySelector(".checking");
+      checking.innerText = "404 User";
+      try {
+        checking.classList.remove('checking');
+        checking.classList.remvoe('solved');
+        checking.classList.remvoe('failed');  
+      } catch (error) {
+        
+      }
     }
   };
 }

@@ -1,29 +1,31 @@
-html,body{
+html{
   padding:0;
   margin:0;
 }
+body{
+  padding: 20px;
+}
 ul{
   list-style:none;
-  padding:0 5px;
-}
+  padding:0;}
 li{
   display:flex;
   align-items:center;
+  padding:0 10px;
+  font-size:20px;
+  transition: all 0.3s;
 }
-li::before{
-  content:'';
-  display: inline-block;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  margin-right:5px;
-  background-color: #f5bba8;
-}
-span{
-  margin-right:5px;
+#problem_number{
+  font-size:30px;
+  font-weight:bold;
+  padding:10px;
 }
 .name{
   font-weight: 600;
+  width:150px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 button{
   border:1px solid #ccc;
@@ -32,16 +34,20 @@ button{
 }
 #BoJ-user-form{
   padding: 10px;
+  width:300px;
+  display:flex;
+  align-items:center;
 }
 #BoJ-user-input{
   border:none;
-  border-bottom: 1px solid #ccc;
-  width:240px;
-  margin: 20px 0;
+  width:200px;
+  margin: 20px 10px 20px 0;
+  padding:4px 8px;
   font-size:17px;
 }
 #BoJ-user-input:focus{
   outline: none;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 #BoJ-input-button{
   padding:4px 6px;
@@ -74,5 +80,9 @@ button{
   color: #aaa;
 }
 .material-icons{
+  margin-right:5px;
   cursor:pointer;
+}
+.status{
+  transition: all 0.3s;
 }
